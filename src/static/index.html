@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Transcription Tool - Updated UI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RETRO TRANSCRIPTION TOOL</h1>
+            <p>Professional Audio Transcription with Vintage Style</p>
+            <p class="creator-credit">Creative&Construction : John Colin Borrie, Manus</p>
+        </header>
+
+        <div class="tabs">
+            <div id="main-tab" class="tab active">RECORDING STUDIO</div>
+            <div id="script-tab" class="tab">SCRIPT INPUT</div>
+            <div id="library-tab" class="tab">AUDIO LIBRARY</div>
+        </div>
+
+        <div class="tab-content">
+            <div id="main-content" class="tab-pane" style="display: block;">
+                <div class="reel-to-reel">
+                    <div class="supply-reel">
+                        <div class="reel-label">SUPPLY</div>
+                        <div class="reel spinning"></div>
+                    </div>
+                    
+                    <div class="tape-path">
+                        <div class="tape-guide"></div>
+                        <div class="tape"></div>
+                        <div class="tape-head"></div>
+                        <div class="tape-guide"></div>
+                    </div>
+                    
+                    <div class="take-up-reel">
+                        <div class="reel-label">TAKE-UP</div>
+                        <div class="reel spinning"></div>
+                    </div>
+                </div>
+
+                <div class="timecode-display">
+                    <div class="display-label">TIMECODE</div>
+                    <div class="timecode">00:00:00</div>
+                </div>
+
+                <div class="vu-meters">
+                    <div class="meter-container">
+                        <div class="meter-label">LEFT</div>
+                        <div class="meter">
+                            <div class="meter-scale">
+                                <span>-∞</span>
+                                <span>-10</span>
+                                <span>0</span>
+                                <span>+3</span>
+                                <span>+6</span>
+                            </div>
+                            <div class="meter-needle" id="left-meter"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="meter-container">
+                        <div class="meter-label">RIGHT</div>
+                        <div class="meter">
+                            <div class="meter-scale">
+                                <span>-∞</span>
+                                <span>-10</span>
+                                <span>0</span>
+                                <span>+3</span>
+                                <span>+6</span>
+                            </div>
+                            <div class="meter-needle" id="right-meter"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transport-controls">
+                    <button id="record-btn" class="btn btn-record">
+                        <i class="fas fa-circle"></i> RECORD
+                    </button>
+                    <button id="stop-btn" class="btn btn-stop">
+                        <i class="fas fa-stop"></i> STOP
+                    </button>
+                    <button id="play-btn" class="btn btn-play">
+                        <i class="fas fa-play"></i> PLAY
+                    </button>
+                    <button id="rewind-btn" class="btn btn-rewind">
+                        <i class="fas fa-backward"></i> REWIND
+                    </button>
+                    <button id="forward-btn" class="btn btn-forward">
+                        <i class="fas fa-forward"></i> FORWARD
+                    </button>
+                    <button id="eject-btn" class="btn btn-eject">
+                        <i class="fas fa-eject"></i> EJECT
+                    </button>
+                </div>
+
+                <div class="file-input">
+                    <label for="audio-file" class="btn btn-secondary">
+                        <i class="fas fa-file-audio"></i> LOAD AUDIO FILE
+                    </label>
+                    <input type="file" id="audio-file" accept="audio/*" style="display: none;">
+                </div>
+
+                <div class="parameter-controls">
+                    <h3>PARAMETER CONTROLS</h3>
+                    
+                    <div class="parameter">
+                        <label>UP-SOTS COUNT:</label>
+                        <input type="range" id="upsots-count" min="0" max="30" value="10" class="slider">
+                        <span id="upsots-count-value">10</span>
+                    </div>
+                    
+                    <div class="parameter">
+                        <label>SENSITIVITY:</label>
+                        <input type="range" id="sensitivity" min="0" max="1" step="0.1" value="0.5" class="slider">
+                        <span id="sensitivity-value">0.5</span>
+                    </div>
+                    
+                    <div class="parameter">
+                        <label>SORT ORDER:</label>
+                        <select id="sort-order">
+                            <option value="chronological">Chronological</option>
+                            <option value="relevance">Relevance to Script</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="transcription-output">
+                    <h3>TRANSCRIPTION OUTPUT</h3>
+                    <div id="transcription-content" class="output-content">
+                        <p>Transcription will appear here after recording and processing.</p>
+                    </div>
+                </div>
+
+                <div class="output-options">
+                    <h3>OUTPUT OPTIONS</h3>
+                    <button id="download-txt-btn" class="btn btn-secondary">
+                        <i class="fas fa-file-alt"></i> DOWNLOAD TXT
+                    </button>
+                    <button id="download-pdf-btn" class="btn btn-secondary">
+                        <i class="fas fa-file-pdf"></i> DOWNLOAD PDF
+                    </button>
+                    <button id="download-edl-btn" class="btn btn-secondary">
+                        <i class="fas fa-file-code"></i> DOWNLOAD EDL
+                    </button>
+                    <button id="email-btn" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> EMAIL TO STATION
+                    </button>
+                    <button id="save-recording-btn" class="btn btn-primary">
+                        <i class="fas fa-save"></i> SAVE RECORDING
+                    </button>
+                </div>
+            </div>
+
+            <div id="script-content" class="tab-pane">
+                <h2>Script Input</h2>
+                <p>Paste your interview script with timecodes for best results.</p>
+                
+                <div class="script-input">
+                    <textarea id="script-textarea" placeholder="00:01:23 Interviewer: What was the most significant challenge you faced? 00:01:45 Guest: Well, I think the biggest issue was..."></textarea>
+                </div>
+                
+                <div class="script-actions">
+                    <button id="extract-btn" class="btn btn-primary">
+                        <i class="fas fa-bolt"></i> Extract Key Moments
+                    </button>
+                    <button id="clear-script-btn" class="btn btn-secondary">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+            </div>
+
+            <div id="library-content" class="tab-pane">
+                <h2>Audio Library</h2>
+                <p>Access your saved recordings for re-transcription or download.</p>
+                
+                <div class="library-controls">
+                    <button id="refresh-library" class="btn btn-secondary">
+                        <i class="fas fa-sync"></i> REFRESH LIBRARY
+                    </button>
+                </div>
+                
+                <div class="recordings-list">
+                    <table id="recordings-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Title</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recordings-tbody">
+                            <tr>
+                                <td colspan="4">No recordings found. Save a recording to see it here.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="retranscribe-panel" class="retranscribe-panel" style="display: none;">
+                    <h3>Re-Transcribe Recording</h3>
+                    <div class="parameter-controls">
+                        <div class="parameter">
+                            <label>UP-SOTS COUNT:</label>
+                            <input type="range" id="retranscribe-upsots" min="0" max="30" value="10" class="slider">
+                            <span id="retranscribe-upsots-value">10</span>
+                        </div>
+                        <div class="parameter">
+                            <label>SENSITIVITY:</label>
+                            <input type="range" id="retranscribe-sensitivity" min="0" max="1" step="0.1" value="0.5" class="slider">
+                            <span id="retranscribe-sensitivity-value">0.5</span>
+                        </div>
+                        <div class="parameter">
+                            <label>SORT ORDER:</label>
+                            <select id="retranscribe-sort">
+                                <option value="chronological">Chronological</option>
+                                <option value="relevance">Relevance to Script</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="retranscribe-actions">
+                        <button id="start-retranscribe" class="btn btn-primary">
+                            <i class="fas fa-sync"></i> START RE-TRANSCRIPTION
+                        </button>
+                        <button id="cancel-retranscribe" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> CANCEL
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="status-message" class="status-message" style="display: none;"></div>
+
+    <script src="js/audio-recorder.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/audio-library.js"></script>
+    <script src="js/ui-library.js"></script>
+    <script src="js/ui-controls.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
